@@ -15,3 +15,5 @@ COPY . .
 RUN npm run build
 
 EXPOSE 3080
+
+CMD ["npm", "start"]
