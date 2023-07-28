@@ -1,15 +1,17 @@
 FROM centos:7.5.1804 AS ui-build
-WORKDIR /usr/src/app
+
+COPY package.json package-lock.json ./
+
 RUN yum install -y epel-release
+
 RUN yum update -y 
 
 RUN yum install -y nodejs
 
 RUN yum install -y npm
-CMD ["npm", "-v"]
+
 RUN npm run build
 
-#COPY package.json package-lock.json ./
 
 #RUN npm install && mkdir /react-ui && mv ./node_modules ./react-ui
 
