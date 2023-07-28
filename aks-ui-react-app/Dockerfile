@@ -1,4 +1,4 @@
-FROM centos:7.5.1804 AS ui-builder
+FROM centos:7.5.1804 AS ui-builder-ui
 
 WORKDIR /usr/src/app
 
@@ -24,7 +24,7 @@ COPY ./.nginx/nginx.conf /etc/nginx/nginx.conf
 
 RUN rm -rf /usr/share/nginx/html/*
 
-COPY --from=ui-builder /react-ui/build /usr/share/nginx/html
+COPY --from=ui-builder-ui /react-ui/build /usr/share/nginx/html
 
 EXPOSE 3080 80
 
