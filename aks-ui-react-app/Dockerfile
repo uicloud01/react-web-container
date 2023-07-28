@@ -6,7 +6,7 @@ RUN yum install -y epel-release
 
 RUN yum update -y 
 
-RUN yum install -y nodejs
+RUN yum install -y nodejs-14.15.4
 
 RUN yum install -y npm
 
