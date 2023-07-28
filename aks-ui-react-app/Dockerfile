@@ -11,10 +11,10 @@ RUN mv ./node_modules ./react-ui
 WORKDIR /react-ui
 COPY . .
 RUN npm run build
-
-RUN yum install -y nginx
+RUN yum install -y nginx; yum clean all; systemctl enable nginx
 COPY ./.nginx/nginx.conf /etc/nginx/nginx.conf
 RUN rm -rf /usr/share/nginx/html/*
 RUN cp -r /react-ui/build/ /usr/share/nginx/html
-EXPOSE 3080 80
-ENTRYPOINT ["nginx", "-g", "daemon off;"]
+EXPOSE 80
+STOPSIGNAL SIGTERM
+CMD ["nginx", "-g", "daemon off;"]
