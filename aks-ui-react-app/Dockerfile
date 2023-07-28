@@ -1,6 +1,6 @@
 FROM centos:7.5.1804 AS ui-builder
 
-#WORKDIR /usr/src/app
+WORKDIR /usr/src/app
 
 RUN yum install -y epel-release
 
