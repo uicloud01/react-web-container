@@ -12,9 +12,9 @@ RUN curl -sL https://rpm.nodesource.com/setup_14.x | bash
 
 RUN yum install -y nodejs
 
-#RUN yum install -y npm
+RUN yum install -y npm
 
-#RUN npm run build
+RUN npm run build
 
 #RUN npm install && mkdir /react-ui && mv ./node_modules ./react-ui
 
