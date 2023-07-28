@@ -14,7 +14,7 @@ RUN npm run build
 
 RUN yum install -y nginx
 COPY ./.nginx/nginx.conf /etc/nginx/nginx.conf
-RUN rm /etc/nginx/conf.d/default.conf
+RUN rm -rf /etc/nginx/conf.d/default.conf
 RUN rm -rf /usr/share/nginx/html/*
 RUN cp -r /react-ui/build/ /usr/share/nginx/html
 EXPOSE 80
