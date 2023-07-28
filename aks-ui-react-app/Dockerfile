@@ -1,5 +1,7 @@
 FROM centos:7.5.1804 AS builder
 
+WORKDIR /usr/src/app
+
 RUN yum install -y epel-release
 
 RUN yum update -y 
