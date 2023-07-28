@@ -14,6 +14,14 @@ RUN yum install -y nodejs
 
 RUN npm install
 
+RUN mkdir /react-ui
+
+RUN mv ./node_modules ./react-ui
+
+WORKDIR /react-ui
+
+COPY . .
+
 RUN npm run build
 
 #RUN npm install && mkdir /react-ui && mv ./node_modules ./react-ui
