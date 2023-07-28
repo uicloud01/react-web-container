@@ -16,5 +16,5 @@ RUN yum install -y nginx
 COPY ./.nginx/nginx.conf /etc/nginx/nginx.conf
 RUN rm -rf /usr/share/nginx/html/*
 RUN cp -r /react-ui/build/ /usr/share/nginx/html
-EXPOSE 3080 80
+EXPOSE 80
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
