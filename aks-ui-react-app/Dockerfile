@@ -10,7 +10,7 @@ RUN yum install curl -y
 
 RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash
 
-RUN nvm install 14.15.4
+RUN nvm install
 
 #RUN yum install -y nodejs-14.15.4
 
