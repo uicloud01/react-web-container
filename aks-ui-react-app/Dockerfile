@@ -1,6 +1,6 @@
 FROM centos:7.5.1804 AS ui-builder
 
-WORKDIR /usr/src/app
+#WORKDIR /usr/src/app
 
 RUN yum install -y epel-release
 
@@ -24,7 +24,7 @@ COPY ./.nginx/nginx.conf /etc/nginx/nginx.conf
 
 RUN rm -rf /usr/share/nginx/html/*
 
-COPY --from=builder /react-ui/build /usr/share/nginx/html
+COPY --from=ui-builder /react-ui/build /usr/share/nginx/html
 
 EXPOSE 3080 80
 
