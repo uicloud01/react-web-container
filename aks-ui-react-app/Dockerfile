@@ -1,4 +1,4 @@
-FROM centos:7.5.1804 AS builder
+FROM centos:7.5.1804 AS ui-builder
 
 WORKDIR /usr/src/app
 
