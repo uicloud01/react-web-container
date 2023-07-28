@@ -6,7 +6,7 @@ RUN yum install -y epel-release
 
 RUN yum update -y 
 
-RUN yum install curl
+RUN yum install curl -y
 
 RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash
 
