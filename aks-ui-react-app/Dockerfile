@@ -1,4 +1,4 @@
-FROM centos:7.5.1804 as builder
+FROM centos:7.5.1804 AS builder
 
 RUN yum install -y epel-release
 
