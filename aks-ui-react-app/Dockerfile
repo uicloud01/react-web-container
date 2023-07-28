@@ -30,7 +30,7 @@ COPY ./.nginx/nginx.conf /etc/nginx/nginx.conf
 
 RUN rm -rf /usr/share/nginx/html/*
 
-COPY ./react-ui/build /usr/share/nginx/html
+COPY /react-ui/build /usr/share/nginx/html
 
 EXPOSE 3080 80
 
