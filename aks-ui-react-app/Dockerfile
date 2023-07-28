@@ -6,11 +6,17 @@ RUN yum install -y epel-release
 
 RUN yum update -y 
 
-RUN yum install -y nodejs-14.15.4
+RUN yum install curl
 
-RUN yum install -y npm
+RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash
 
-RUN npm run build
+RUN nvm install 14.15.4
+
+#RUN yum install -y nodejs-14.15.4
+
+#RUN yum install -y npm
+
+#RUN npm run build
 
 
 #RUN npm install && mkdir /react-ui && mv ./node_modules ./react-ui
