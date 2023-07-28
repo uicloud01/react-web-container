@@ -17,5 +17,4 @@ COPY ./.nginx/nginx.conf /etc/nginx/nginx.conf
 RUN rm -rf /usr/share/nginx/html/*
 RUN cp -r /react-ui/build/ /usr/share/nginx/html
 EXPOSE 3080 80
-RUN systemctl start nginx
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
