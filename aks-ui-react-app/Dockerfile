@@ -24,22 +24,14 @@ COPY . .
 
 RUN npm run build
 
-#RUN npm install && mkdir /react-ui && mv ./node_modules ./react-ui
+RUN yum install -y nginx
 
-#WORKDIR /react-ui
+COPY ./.nginx/nginx.conf /etc/nginx/nginx.conf
 
-#COPY . .
+RUN rm -rf /usr/share/nginx/html/*
 
-#RUN npm run build
+COPY --from=ui-build /react-ui/build /usr/share/nginx/html
 
-#RUN yum install -y nginx
+EXPOSE 3080 80
 
-#COPY ./.nginx/nginx.conf /etc/nginx/nginx.conf
-
-#RUN rm -rf /usr/share/nginx/html/*
-
-#COPY --from=ui-builder-ui /react-ui/build /usr/share/nginx/html
-
-#EXPOSE 3080 80
-
-#ENTRYPOINT ["nginx", "-g", "daemon off;"]
+ENTRYPOINT ["nginx", "-g", "daemon off;"]
