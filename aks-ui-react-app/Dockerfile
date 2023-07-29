@@ -19,15 +19,16 @@ RUN npm run build
 FROM centos:7.5.1804
 
 # Create Nginx directories and set ownership
-RUN mkdir -p /usr/share/nginx/html
+RUN mkdir -p /usr/share/nginx/html && \
+    chown -R nginx:nginx /usr/share/nginx
 
 # Install Nginx (if not already installed)
 RUN yum update -y && \
     yum install -y epel-release && \
     yum install -y nginx
 
-# Remove default Nginx configuration
-RUN rm /etc/nginx/nginx.conf /etc/nginx/conf.d/default.conf
+# Remove default Nginx configuration (if it exists)
+RUN if [ -f /etc/nginx/conf.d/default.conf ]; then rm /etc/nginx/conf.d/default.conf; fi
 
 # Switch to the root user temporarily to copy the files
 USER root
