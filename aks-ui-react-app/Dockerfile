@@ -19,8 +19,7 @@ RUN npm run build
 FROM centos:7.5.1804
 
 # Create Nginx directories and set ownership
-RUN mkdir -p /usr/share/nginx/html && \
-    chown -R nginx:nginx /usr/share/nginx
+RUN mkdir -p /usr/share/nginx/html
 
 # Install Nginx (if not already installed)
 RUN yum update -y && \
@@ -36,11 +35,11 @@ USER root
 # Copy the built React app from the build-stage to the Nginx web root directory
 COPY --from=ui-build /react-ui/build/ /usr/share/nginx/html
 
-# Set the ownership back to the nginx user
-RUN chown -R nginx:nginx /usr/share/nginx/html
+# Set the ownership to the nginx user ID and group ID
+RUN chown -R 1001:1001 /usr/share/nginx/html
 
 # Switch back to the nginx user
-USER nginx
+USER 1001
 
 # Copy custom Nginx configuration (if needed)
 # COPY ./.nginx/nginx.conf /etc/nginx/nginx.conf
