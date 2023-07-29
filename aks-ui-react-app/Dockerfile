@@ -28,7 +28,7 @@ RUN yum update -y && \
     yum install -y nginx
 
 # Remove default Nginx configuration (if it exists)
-RUN if [ -f /etc/nginx/conf.d/default.conf ]; then rm /etc/nginx/conf.d/default.conf; fi
+RUN if [ -f /etc/nginx/nginx.conf ]; then rm /etc/nginx/nginx.conf; fi
 
 # Switch to the root user temporarily to copy the files
 USER root
@@ -37,10 +37,10 @@ USER root
 COPY --from=ui-build /react-ui/build/ /usr/share/nginx/html
 
 # Set the ownership to the nginx user ID and group ID
-RUN chown -R 1001:1001 /usr/share/nginx/html
+RUN chown -R nginx:nginx /usr/share/nginx/html
 
 # Switch back to the nginx user
-USER 1001
+USER nginx
 
 # Copy custom Nginx configuration (if needed)
 # COPY ./.nginx/nginx.conf /etc/nginx/nginx.conf
