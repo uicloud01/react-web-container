@@ -15,17 +15,38 @@ COPY . .
 
 RUN npm run build
 
-RUN yum install -y nginx && \
-    rm -rf /etc/nginx/conf.d/default.conf && \
-    rm -rf /usr/share/nginx/html/*
+# Second stage: Create Nginx directories, set ownership, and configure Nginx
+FROM centos:7.5.1804
 
-COPY ./.nginx/nginx.conf /etc/nginx/nginx.conf
+# Create Nginx directories and set ownership
+RUN mkdir -p /usr/share/nginx/html && \
+    chown -R nginx:nginx /usr/share/nginx
 
-# Switch to the 'nginx' user before running Nginx
-USER nginx
+# Install Nginx (if not already installed)
+RUN yum update -y && \
+    yum install -y epel-release && \
+    yum install -y nginx
+
+# Remove default Nginx configuration
+RUN rm /etc/nginx/nginx.conf /etc/nginx/conf.d/default.conf
+
+# Switch to the root user temporarily to copy the files
+USER root
 
 # Copy the built React app from the build-stage to the Nginx web root directory
-RUN cp -r /react-ui/build/ /usr/share/nginx/html
+COPY --from=ui-build /react-ui/build/ /usr/share/nginx/html
 
+# Set the ownership back to the nginx user
+RUN chown -R nginx:nginx /usr/share/nginx/html
+
+# Switch back to the nginx user
+USER nginx
+
+# Copy custom Nginx configuration (if needed)
+# COPY ./.nginx/nginx.conf /etc/nginx/nginx.conf
+
+# Expose port 80
 EXPOSE 80
-ENTRYPOINT ["nginx", "-g", "daemon off;"]
+
+# Start Nginx
+CMD ["nginx", "-g", "daemon off;"]
