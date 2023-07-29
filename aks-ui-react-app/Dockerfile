@@ -30,7 +30,7 @@ RUN useradd -r -u 1001 nginx
 RUN chown -R nginx:nginx /etc/nginx /var/log/nginx /var/cache/nginx /var/run/nginx
 
 # Switch to the 'nginx' user before running Nginx
-USER nginx
+#USER nginx
 
 EXPOSE 80
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
