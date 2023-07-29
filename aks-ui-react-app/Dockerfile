@@ -21,16 +21,11 @@ RUN yum install -y nginx && \
 
 COPY ./.nginx/nginx.conf /etc/nginx/nginx.conf
 
-RUN cp -r /react-ui/build/ /usr/share/nginx/html
-
-# Create a new user 'nginx' with UID/GID 1001
-RUN useradd -r -u 1001 nginx
-
-# Change ownership of the Nginx directories to the 'nginx' user
-RUN chown -R nginx:nginx /etc/nginx /var/log/nginx /var/cache/nginx /var/run/nginx
-
 # Switch to the 'nginx' user before running Nginx
 USER nginx
+
+# Copy the built React app from the build-stage to the Nginx web root directory
+RUN cp -r /react-ui/build/ /usr/share/nginx/html
 
 EXPOSE 80
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
